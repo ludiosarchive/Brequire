@@ -11,16 +11,27 @@ is not fine-grained enough.)
 
 __version__ = '10.8.18'
 
+import operator
 
-allRequires = []
+
+allRequires = set()
 
 
-class Require(object):
-	__slots__ = ('module', 'fpath')
+class Require(tuple):
+	# All the strange stuff here is just to make an immutable object
+	# (which is also nicely __eq__'able).
+	__slots__ = ()
+	_MARKER = object()
 
-	def __init__(self, module, fpath):
-		self.module = module
-		self.fpath = fpath
+	module = property(operator.itemgetter(0))
+	fpath = property(operator.itemgetter(1))
+
+	def __new__(cls, module, fpath):
+		return tuple.__new__(cls, (cls._MARKER, module, fpath))
+
+
+	def __repr__(self):
+		return '%s(%r, %r)' % (self.__class__.__name__, self[1], self[2])
 
 
 
@@ -33,7 +44,7 @@ def requireFile(fpath, frm=None):
 		frm = inspect.stack()[1]
 	module = inspect.getmodule(frm[0])
 	require = Require(module, fpath)
-	allRequires.append(require)
+	allRequires.add(require)
 	##print "%r required %r" % (mod, f)
 
 
