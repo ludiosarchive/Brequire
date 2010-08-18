@@ -7,6 +7,8 @@ requireFile(FilePath(__file__).parent().child('some_file'))
 This allows bpackage to know which static files are necessary for each
 individual module.  (The distutils setup.py approach of setting package_data=
 is not fine-grained enough.)
+
+Note: bpackage thinks that anything that imports this module is safe to import.
 """
 
 __version__ = '10.8.18'
