@@ -11,8 +11,6 @@ is not fine-grained enough.)
 
 __version__ = '10.8.18'
 
-import inspect
-
 
 allRequires = []
 
@@ -30,6 +28,7 @@ def requireFile(fpath, frm=None):
 	"""
 	C{fpath} is a L{twisted.python.filepath.FilePath}.
 	"""
+	import inspect
 	if frm is None:
 		frm = inspect.stack()[1]
 	module = inspect.getmodule(frm[0])
@@ -39,6 +38,7 @@ def requireFile(fpath, frm=None):
 
 
 def requireFiles(fpaths):
+	import inspect
 	frm = inspect.stack()[1]
 	for fpath in fpaths:
 		requireFile(fpath, frm)
