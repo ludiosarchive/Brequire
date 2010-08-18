@@ -25,8 +25,8 @@ class Require(tuple):
 	__slots__ = ()
 	_MARKER = object()
 
-	module = property(operator.itemgetter(0))
-	fpath = property(operator.itemgetter(1))
+	module = property(operator.itemgetter(1))
+	fpath = property(operator.itemgetter(2))
 
 	def __new__(cls, module, fpath):
 		return tuple.__new__(cls, (cls._MARKER, module, fpath))

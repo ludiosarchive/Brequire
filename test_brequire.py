@@ -36,3 +36,14 @@ class TestBrequire(unittest.TestCase):
 			brequire.Require(thisModule, FilePath('a')),
 			brequire.Require(thisModule, FilePath('b')),
 		]), brequire.allRequires)
+
+
+	def test_Require(self):
+		"""
+		Test that Require's public attributes return the right thing.
+		This tests for a real regression.
+		"""
+		someModule = object()
+		req = brequire.Require(someModule, FilePath('a'))
+		self.assertEqual(someModule, req.module)
+		self.assertEqual(FilePath('a'), req.fpath)
