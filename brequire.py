@@ -18,6 +18,8 @@ allRequires = []
 
 
 class Require(object):
+	__slots__ = ('module', 'fpath')
+
 	def __init__(self, module, fpath):
 		self.module = module
 		self.fpath = fpath
