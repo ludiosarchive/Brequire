@@ -43,6 +43,8 @@ def requireFile(fpath, frm=None):
 	"""
 	import inspect
 	if frm is None:
+		# We don't really *need* to know the calling module, because
+		# bpackage doesn't use the information, but we do it anyway.
 		frm = inspect.stack()[1]
 	module = inspect.getmodule(frm[0])
 	require = Require(module, fpath)
