@@ -1,6 +1,5 @@
 import sys
 from twisted.trial import unittest
-from twisted.python.filepath import FilePath
 
 import brequire
 
@@ -15,26 +14,26 @@ class TestBrequire(unittest.TestCase):
 		self._nukeAllRequires()
 		self.addCleanup(self._nukeAllRequires)
 
-		brequire.requireFile(FilePath('a'))
+		brequire.requireFile('path_a')
 		# It's idempotent.
-		brequire.requireFile(FilePath('a'))
+		brequire.requireFile('path_a')
 
 		thisModule = sys.modules[__name__]
-		self.assertEqual(set([brequire.Require(thisModule, FilePath('a'))]), brequire.allRequires)
+		self.assertEqual(set([brequire.Require(thisModule, 'path_a')]), brequire.allRequires)
 
 
 	def test_requireFiles(self):
 		self._nukeAllRequires()
 		self.addCleanup(self._nukeAllRequires)
 
-		brequire.requireFiles([FilePath('a'), FilePath('a'), FilePath('b')])
+		brequire.requireFiles(['path_a', 'path_a', 'path_b'])
 		# It's idempotent.
-		brequire.requireFiles([FilePath('a'), FilePath('a'), FilePath('b')])
+		brequire.requireFiles(['path_a', 'path_a', 'path_b'])
 
 		thisModule = sys.modules[__name__]
 		self.assertEqual(set([
-			brequire.Require(thisModule, FilePath('a')),
-			brequire.Require(thisModule, FilePath('b')),
+			brequire.Require(thisModule, 'path_a'),
+			brequire.Require(thisModule, 'path_b'),
 		]), brequire.allRequires)
 
 
@@ -44,6 +43,6 @@ class TestBrequire(unittest.TestCase):
 		This tests for a real regression.
 		"""
 		someModule = object()
-		req = brequire.Require(someModule, FilePath('a'))
+		req = brequire.Require(someModule, 'path_a')
 		self.assertEqual(someModule, req.module)
-		self.assertEqual(FilePath('a'), req.fpath)
+		self.assertEqual('path_a', req.fpath)

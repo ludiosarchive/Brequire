@@ -39,7 +39,7 @@ class Require(tuple):
 
 def requireFile(fpath, frm=None):
 	"""
-	C{fpath} is a L{twisted.python.filepath.FilePath}.
+	C{fpath} is a C{str} representing an absolute file path.
 	"""
 	import inspect
 	if frm is None:
