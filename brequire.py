@@ -25,15 +25,14 @@ class Require(tuple):
 	__slots__ = ()
 	_MARKER = object()
 
-	module = property(operator.itemgetter(1))
-	fpath = property(operator.itemgetter(2))
+	fpath = property(operator.itemgetter(1))
 
-	def __new__(cls, module, fpath):
-		return tuple.__new__(cls, (cls._MARKER, module, fpath))
+	def __new__(cls, fpath):
+		return tuple.__new__(cls, (cls._MARKER, fpath))
 
 
 	def __repr__(self):
-		return '%s(%r, %r)' % (self.__class__.__name__, self[1], self[2])
+		return '%s(%r)' % (self.__class__.__name__, self[1])
 
 
 
@@ -44,10 +43,11 @@ def requireFile(fpath, frm=None):
 	import inspect
 	if frm is None:
 		# We don't really *need* to know the calling module, because
-		# bpackage doesn't use the information, but we do it anyway.
+		# bpackage doesn't use the information, but we do it because
+		# the debug info might be useful in the future.
 		frm = inspect.stack()[1]
 	module = inspect.getmodule(frm[0])
-	require = Require(module, fpath)
+	require = Require(fpath)
 	allRequires.add(require)
 	##print "%r required %r" % (mod, f)
 

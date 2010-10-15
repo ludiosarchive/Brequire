@@ -18,8 +18,7 @@ class TestBrequire(unittest.TestCase):
 		# It's idempotent.
 		brequire.requireFile('path_a')
 
-		thisModule = sys.modules[__name__]
-		self.assertEqual(set([brequire.Require(thisModule, 'path_a')]), brequire.allRequires)
+		self.assertEqual(set([brequire.Require('path_a')]), brequire.allRequires)
 
 
 	def test_requireFiles(self):
@@ -30,19 +29,15 @@ class TestBrequire(unittest.TestCase):
 		# It's idempotent.
 		brequire.requireFiles(['path_a', 'path_a', 'path_b'])
 
-		thisModule = sys.modules[__name__]
 		self.assertEqual(set([
-			brequire.Require(thisModule, 'path_a'),
-			brequire.Require(thisModule, 'path_b'),
+			brequire.Require('path_a'),
+			brequire.Require('path_b'),
 		]), brequire.allRequires)
 
 
-	def test_Require(self):
+	def test_publicAttr(self):
 		"""
 		Test that Require's public attributes return the right thing.
-		This tests for a real regression.
 		"""
-		someModule = object()
-		req = brequire.Require(someModule, 'path_a')
-		self.assertEqual(someModule, req.module)
+		req = brequire.Require('path_a')
 		self.assertEqual('path_a', req.fpath)
