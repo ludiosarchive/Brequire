@@ -2,7 +2,7 @@
 Any module that needs non-Python-module files to work correctly should import
 this module, and call requireFile at module scope like this:
 
-requireFile(FilePath(__file__).parent().child('some_file'))
+requireFile(FilePath(__file__).sibling('some_file'))
 
 This allows bpackage to know which static files are necessary for each
 individual module.  (The distutils setup.py approach of setting package_data=
