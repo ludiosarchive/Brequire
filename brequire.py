@@ -8,7 +8,9 @@ This allows bpackage to know which static files are necessary for each
 individual module.  (The distutils setup.py approach of setting package_data=
 is not fine-grained enough.)
 
-Note: bpackage thinks that anything that imports this module is safe to import.
+Any module that imports brequire *must* be safe to import (i.e., it does not
+actually "do anything" on import).  Existing software (incl. Deepfreezer)
+relies on this guarantee.
 """
 
 __version__ = '10.11.15'
