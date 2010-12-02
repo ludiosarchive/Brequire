@@ -11,7 +11,7 @@ is not fine-grained enough.)
 Note: bpackage thinks that anything that imports this module is safe to import.
 """
 
-__version__ = '10.8.18'
+__version__ = '10.11.15'
 
 import operator
 
