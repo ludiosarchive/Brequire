@@ -20,8 +20,7 @@ allRequires = set()
 
 
 class Require(tuple):
-	# All the strange stuff here is just to make an immutable object
-	# (which is also nicely __eq__'able).
+	# http://ludios.org/ivank/2010/11/a-template-for-immutable-python-objects/
 	__slots__ = ()
 	_MARKER = object()
 
