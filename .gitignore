@@ -1,4 +1,6 @@
+/_trial_temp
 /build
+/dist
+/MANIFEST
 *.pyc
 *.pyo
-/_trial_temp
